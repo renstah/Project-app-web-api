@@ -4,9 +4,8 @@ var router = express.Router();
 /* GET users listing. */
 router.get('/', function(req, res, next) {
     res.json({
-        "user1": {
-            "firstName": "Lorenzo",
-            "name": "Wallerlei"
+        "event1": {
+            "eventName": "Lorenzo"
         }
     });
 });

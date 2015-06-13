@@ -1,7 +1,19 @@
 <?php
-	$app->get('/user/create', function() use ($app) {
+	$app->post('/user/create', function() use ($app) {
+		require 'database.php';
+		// $json = $app->request->getBody();
+		//
+		// $user = json_decode($json);
+
+		$user = json_decode($app->request->getBody());
+
+		$query = "INSERT INTO user (Name, Social_Token, GenderID) VALUES ('$user->Name', $user->Social_Token, $user->Gender);";
+		$result = $con->query($query);
+		if ($con->error)
+			throw new Exception($con->error, 1);
+
 		$app->render(200 ,array(
-			'msg' => 'user created'
+			'msg' => $result
 		));
 	});
 

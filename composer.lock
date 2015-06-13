@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2984ab532f5d02dbfa927a8dd4a39feb",
+    "hash": "8457e938f716d7a503940085a5ae6b2c",
     "packages": [
         {
             "name": "entomb/slim-json-api",

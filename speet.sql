@@ -78,6 +78,7 @@ CREATE TABLE IF NOT EXISTS `gender` (
 CREATE TABLE IF NOT EXISTS `user` (
   `UserID` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `Name` varchar(50) NOT NULL,
+  `Api_Token` varchar(50) NOT NULL,
   `Social_Token` varchar(50) NOT NULL,
   `DateOfBirth` date NOT NULL,
   `GenderID` tinyint(4) unsigned NOT NULL,

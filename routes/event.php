@@ -1,5 +1,11 @@
 <?php
-	$app->get('/event/create', function() use ($app) {
+	$app->post('/event/create', function() use ($app) {
+		require 'database.php';
+
+		//get JSON body
+		$user = json_decode($app->request->getBody());
+
+
 		$app->render(200 ,array(
 			'msg' => $events,
 		));
@@ -16,7 +22,7 @@
 		$app->render(200 ,array(
 			'event' => $event
 		));
-	});
+	})->name('event');
 
 	// $app->get('/event/delete/:id', function($id) use ($app) {
 	// 	$app->render(200 ,array(
@@ -26,6 +32,7 @@
 
 	$app->get('/events/', function() use ($app) {
 		require 'database.php';
+
 		$query = "SELECT * FROM event";
 		$result = $con->query($query);
 		if ($con->error)
@@ -37,4 +44,4 @@
 		$app->render(200 ,array(
 			'events' => $events
 		));
-	});
+	})->name('events');

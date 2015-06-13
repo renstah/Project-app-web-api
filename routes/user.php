@@ -1,23 +1,22 @@
 <?php
 	$app->post('/user/create', function() use ($app) {
 		require 'database.php';
-		// $json = $app->request->getBody();
-		//
-		// $user = json_decode($json);
 
+		// get JSON body
 		$user = json_decode($app->request->getBody());
 
-		//select existing
+		// select existing
 		$query = "SELECT * FROM user WHERE Social_Token = $user->Social_Token LIMIT 1;";
 		$result = $con->query($query);
 		if ($con->error)
 			throw new Exception($con->error, 1);
 		$result = $result->fetch_object();
 
-		//insert new user
+		// insert new user
 		if ($result == null)
 		{
-			$query = "INSERT INTO user (Name, Social_Token, GenderID) VALUES ('$user->Name', $user->Social_Token, $user->Gender)";
+			$token = substr(str_shuffle(MD5(microtime())), 0, 27) . uniqid(true);
+			$query = "INSERT INTO user (Api_Token, Name, Social_Token, GenderID) VALUES ('$token', '$user->Name', $user->Social_Token, $user->Gender)";
 			$con->query($query);
 			if ($con->error)
 				throw new Exception($con->error, 1);
@@ -28,7 +27,7 @@
 		}
 
 		$app->render(200 ,array(
-			'msg' => $result
+			'user' => $result
 		));
 	});
 

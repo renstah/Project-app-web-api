@@ -42,7 +42,7 @@ class AuthMiddleware extends \Slim\Middleware
       $userID = $this->con->real_escape_string($userID);
 
       // query user
-      $query = "SELECT * FROM user WHERE UserID = '$userID' AND Api_Token = '$token' LIMIT 1;";
+      $query = "SELECT * FROM user WHERE UserID ='" . $userID . "' AND Api_Token ='" . $token . "' LIMIT 1;";
   		$result = $this->con->query($query);
   		if ($this->con->error)
   			throw new Exception($this->con->error, 1);

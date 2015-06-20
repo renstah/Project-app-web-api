@@ -3,11 +3,22 @@
 		require 'database.php';
 
 		//get JSON body
-		$user = json_decode($app->request->getBody());
+		$event = json_decode($app->request->getBody());
+
+		$Date_Start = new DateTime($event->Date_Start);
+		$Date_End = new DateTime($event->Date_End);
+
+		$query = "INSERT INTO event (Name, Date_Start, Date_End, Latitude, Longitude, Age_Min, Age_Max, CreatorID, CategoryID, GenderID) VALUES ('$event->Name', '". $Date_Start->format('Y-m-d H:i') ."', '".$Date_End->format('Y-m-d H:i')."', '$event->Latitude', '$event->Longitude', '$event->Age_Min', '$event->Age_Max', '". $app->user->UserID."', '$event->CategoryID', 3)";
+		$con->query($query);
+		if ($con->error)
+			throw new Exception($con->error, 1);
+		$query = "SELECT * FROM event WHERE CreatorID = '" .$app->user->UserID."' ORDER BY Created_DateTime DESC LIMIT 1;";
+		$result = $con->query($query);
+		$result = $result->fetch_object();
 
 
 		$app->render(200 ,array(
-			'msg' => $events,
+			'event' => $result
 		));
 	});
 
